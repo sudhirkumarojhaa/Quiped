@@ -1,16 +1,16 @@
 {
   "files": {
-    "main.css": "/sudhirkumarojhaa/Quiped/static/css/main.6d481f32.chunk.css",
-    "main.js": "/sudhirkumarojhaa/Quiped/static/js/main.6487ed54.chunk.js",
-    "main.js.map": "/sudhirkumarojhaa/Quiped/static/js/main.6487ed54.chunk.js.map",
-    "runtime~main.js": "/sudhirkumarojhaa/Quiped/static/js/runtime~main.cff4c110.js",
-    "runtime~main.js.map": "/sudhirkumarojhaa/Quiped/static/js/runtime~main.cff4c110.js.map",
-    "static/js/2.a2a4507e.chunk.js": "/sudhirkumarojhaa/Quiped/static/js/2.a2a4507e.chunk.js",
-    "static/js/2.a2a4507e.chunk.js.map": "/sudhirkumarojhaa/Quiped/static/js/2.a2a4507e.chunk.js.map",
-    "index.html": "/sudhirkumarojhaa/Quiped/index.html",
-    "precache-manifest.078ba1926b9d2fe63c90a6506334b680.js": "/sudhirkumarojhaa/Quiped/precache-manifest.078ba1926b9d2fe63c90a6506334b680.js",
-    "service-worker.js": "/sudhirkumarojhaa/Quiped/service-worker.js",
-    "static/css/main.6d481f32.chunk.css.map": "/sudhirkumarojhaa/Quiped/static/css/main.6d481f32.chunk.css.map",
-    "static/media/loader.gif": "/sudhirkumarojhaa/Quiped/static/media/loader.584b607f.gif"
+    "main.css": "/Quiped/static/css/main.6d481f32.chunk.css",
+    "main.js": "/Quiped/static/js/main.aba1c6d4.chunk.js",
+    "main.js.map": "/Quiped/static/js/main.aba1c6d4.chunk.js.map",
+    "runtime~main.js": "/Quiped/static/js/runtime~main.47c8c7f8.js",
+    "runtime~main.js.map": "/Quiped/static/js/runtime~main.47c8c7f8.js.map",
+    "static/js/2.e02d3408.chunk.js": "/Quiped/static/js/2.e02d3408.chunk.js",
+    "static/js/2.e02d3408.chunk.js.map": "/Quiped/static/js/2.e02d3408.chunk.js.map",
+    "index.html": "/Quiped/index.html",
+    "precache-manifest.1540687e27631bb0e933a0fb8188c6ec.js": "/Quiped/precache-manifest.1540687e27631bb0e933a0fb8188c6ec.js",
+    "service-worker.js": "/Quiped/service-worker.js",
+    "static/css/main.6d481f32.chunk.css.map": "/Quiped/static/css/main.6d481f32.chunk.css.map",
+    "static/media/loader.gif": "/Quiped/static/media/loader.584b607f.gif"
   }
 }
