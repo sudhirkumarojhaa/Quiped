@@ -2,7 +2,7 @@
   "name": "quiped",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://github.com/sudhirkumarojhaa/Quiped",
+  "homepage": "https://sudhirkumarojhaa.github.io/Quiped/",
   "dependencies": {
     "firebase": "^7.12.0",
     "gh-pages": "^2.2.0",
