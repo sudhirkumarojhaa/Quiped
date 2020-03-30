@@ -7,3 +7,5 @@ export const  config = {
   messagingSenderId: "77224361806",
   appId: "1:77224361806:web:d339123a05dccd9e97e81f"
 };
+
+export const message = "Please ask your administrator to add rooms."
