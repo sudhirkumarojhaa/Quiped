@@ -1,14 +1,14 @@
 {
   "files": {
     "main.css": "/Quiped/static/css/main.6d481f32.chunk.css",
-    "main.js": "/Quiped/static/js/main.aba1c6d4.chunk.js",
-    "main.js.map": "/Quiped/static/js/main.aba1c6d4.chunk.js.map",
+    "main.js": "/Quiped/static/js/main.f5949f6f.chunk.js",
+    "main.js.map": "/Quiped/static/js/main.f5949f6f.chunk.js.map",
     "runtime~main.js": "/Quiped/static/js/runtime~main.47c8c7f8.js",
     "runtime~main.js.map": "/Quiped/static/js/runtime~main.47c8c7f8.js.map",
     "static/js/2.e02d3408.chunk.js": "/Quiped/static/js/2.e02d3408.chunk.js",
     "static/js/2.e02d3408.chunk.js.map": "/Quiped/static/js/2.e02d3408.chunk.js.map",
     "index.html": "/Quiped/index.html",
-    "precache-manifest.1540687e27631bb0e933a0fb8188c6ec.js": "/Quiped/precache-manifest.1540687e27631bb0e933a0fb8188c6ec.js",
+    "precache-manifest.0cb9f26bee6a4d32eabaa8fc4d37079f.js": "/Quiped/precache-manifest.0cb9f26bee6a4d32eabaa8fc4d37079f.js",
     "service-worker.js": "/Quiped/service-worker.js",
     "static/css/main.6d481f32.chunk.css.map": "/Quiped/static/css/main.6d481f32.chunk.css.map",
     "static/media/loader.gif": "/Quiped/static/media/loader.584b607f.gif"
