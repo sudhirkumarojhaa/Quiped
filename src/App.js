@@ -18,6 +18,7 @@ const App = () => {
   const [signIn, setSignIn] = useState(false);
   const [user, setUser] = useState('');
   const [display,setDisplay]= useState(false);
+ 
 
   useEffect(() => {
     firebase.auth().onAuthStateChanged(user => {
@@ -38,14 +39,16 @@ const App = () => {
   }
 
   const sendData = id => {
-    setDisplay(true);
-    const arr = data.map(items => {
-      if (items.id === id) {
+    const flag = data.filter(items => items.occupant === user.displayName)
+    let arr;
+    console.log(flag)
+    arr = data.map(items => {
+      if (flag.length === 0 && items.id === id && items.occupant === '') {
         items.status = !items.status;
-      }
-      if (items.status) {
         items.occupant = user.displayName
-      } else {
+      } else if (flag.length !== 0 && items.id === id && items.occupant === user.displayName){
+        console.log('disable')
+        items.status = !items.status;
         items.occupant = ''
       }
       return items;
