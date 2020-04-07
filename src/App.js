@@ -18,10 +18,12 @@ const App = () => {
   const [signIn, setSignIn] = useState(false);
   const [user, setUser] = useState('');
   const [display,setDisplay]= useState(false);
+  const [occupied,setOccupied]= useState([]);
  
 
   useEffect(() => {
     firebase.auth().onAuthStateChanged(user => {
+      console.log(user)
       setSignIn(!!user)
       setUser(user)
     })
@@ -39,21 +41,26 @@ const App = () => {
   }
 
   const sendData = id => {
-    const flag = data.filter(items => items.occupant === user.displayName)
+    setDisplay(true);
+    let flag = data.some(items => items.occupant === user.displayName)
     let arr;
-    console.log(flag)
     arr = data.map(items => {
-      if (flag.length === 0 && items.id === id && items.occupant === '') {
+      if (!flag && items.id === id && items.occupant === '') {
         items.status = !items.status;
         items.occupant = user.displayName
-      } else if (flag.length !== 0 && items.id === id && items.occupant === user.displayName){
-        console.log('disable')
+        items.enabled = true
+      } else if (flag && items.id === id && items.occupant === user.displayName){
         items.status = !items.status;
-        items.occupant = ''
+        items.occupant = '';
+      } else if(items.id !== id){
+        items.enabled = flag
       }
       return items;
     });
+    console.log(flag)
     setData(arr);
+    setOccupied(flag)
+    setDisplay(false)
     firebase
       .database()
       .ref('Rooms/')
@@ -72,17 +79,16 @@ const App = () => {
         setDisplay(false);
       });
   };
-
   return (
     <div className="app">
       {signIn ? <div className="container position-relative vh-100">
         {display ?
           <Loader style={{ display: display ? 'flex' : 'none'}} /> :
           <div>
-            <Header src={user.photoURL} onClick={() => firebase.auth().signOut()}/>
+            <Header src={user ? user.photoURL: 'unknown'}  onClick={() => firebase.auth().signOut()}/>
             {data !== undefined ?
               data.map(item =>
-                <ListItem key={item.id} name={item.name} item={item.occupant} status={item.status}onClick={() => sendData(item.id)}/>
+                <ListItem key={item.id} name={item.name} enabled={item.enabled}  item={item.occupant} status={item.status}onClick={() => sendData(item.id)}/>
                ) : <p>{message}</p>}
           </div>
           }
