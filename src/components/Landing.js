@@ -1,14 +1,10 @@
 /* eslint-disable react-native/no-inline-styles */
-import React, { useState, useEffect , useContext } from "react";
-import {Route, Redirect} from 'react-router-dom'; 
+import React, {useContext } from "react";
+import {Redirect} from 'react-router-dom';
 import firebase from "firebase";
 import "../design/App.css";
-import { config, message } from "../assets/config";
-import Login from "./Login";
+import { config } from "../assets/config";
 import Footer from "./Footer";
-import Loader from "./Loader";
-import Header from "./Header";
-import ListItem from "./ListItem";
 import { AuthContext } from "./auth"
 import StyledFirebaseAuth from "react-firebaseui/StyledFirebaseAuth";
 
@@ -17,9 +13,9 @@ if (!firebase.apps.length) {
 }
 
 const Landing = () => {
-  const {signIn, user} = useContext(AuthContext)
+  const {signIn} = useContext(AuthContext)
   const uiConfig = {
-    signInFlow: "popup",
+    signInFlow: "redirect",
     signInOptions: [firebase.auth.GoogleAuthProvider.PROVIDER_ID],
     callbacks: {
       signInSuccess: () => false,
@@ -31,20 +27,16 @@ const Landing = () => {
   }
 
   return (
-    <div className="w-100">
-      <div className="w-100 ">
       <div className="bg">
-        <div className="d-flex flex-column justify-content-center  align-items-center ">
-          <h2 className="text-white my-3 ">Quiped Application</h2>
+        <div className="d-flex flex-column justify-content-center  align-items-center h-75">
+          <h3 className="text-white font-weight-bold my-3 ">Quiped Application</h3>
           <StyledFirebaseAuth
             uiConfig={uiConfig}
             firebaseAuth={firebase.auth()}
           />
         </div>
-      </div>
-      </div>
-      <Footer />
-    </div>
+        <Footer />
+     </div>
   );
 };
 
