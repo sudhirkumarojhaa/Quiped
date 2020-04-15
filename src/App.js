@@ -10,7 +10,7 @@ const App = () => {
   return (
     <div className="app">
       <AuthProvider >
-        <Router basename={window.location.pathname || ''}>
+        <Router>
           <Switch>
             <Route exact path="/" component={Landing} />
             <Route exact path="/dashboard" component={Dashboard} />
