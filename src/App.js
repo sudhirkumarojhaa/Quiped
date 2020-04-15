@@ -9,8 +9,8 @@ import { AuthProvider} from "./components/auth.js";
 const App = () => {
   return (
     <div className="app">
-      <AuthProvider>
-        <Router>
+      <AuthProvider >
+        <Router basename={window.location.pathname || ''}>
           <Switch>
             <Route exact path="/" component={Landing} />
             <Route exact path="/dashboard" component={Dashboard} />
