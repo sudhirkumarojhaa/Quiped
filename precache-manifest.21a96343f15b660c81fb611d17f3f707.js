@@ -1,10 +1,10 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "ee4e2a5199389606b419efe0945bd966",
+    "revision": "e4830bb6ce88745a938bd15f137e19b8",
     "url": "/Quiped/index.html"
   },
   {
-    "revision": "c9dd15814ff387f057dd",
+    "revision": "edba8db01069e4523d4e",
     "url": "/Quiped/static/css/main.f5791f8c.chunk.css"
   },
   {
@@ -12,8 +12,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/Quiped/static/js/2.1bd6cb1e.chunk.js"
   },
   {
-    "revision": "c9dd15814ff387f057dd",
-    "url": "/Quiped/static/js/main.3e0fe0b1.chunk.js"
+    "revision": "edba8db01069e4523d4e",
+    "url": "/Quiped/static/js/main.470bac6f.chunk.js"
   },
   {
     "revision": "68da24bffdb63a055fdf",
