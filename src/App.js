@@ -10,7 +10,7 @@ const App = () => {
   return (
     <div className="app">
       <AuthProvider >
-        <Router>
+        <Router basename={process.env.PUBLIC_URL}>
           <Switch>
             <Route exact path="/" component={Landing} />
             <Route exact path="/dashboard" component={Dashboard} />
