@@ -15,7 +15,7 @@ if (!firebase.apps.length) {
 const Landing = () => {
   const {signIn} = useContext(AuthContext)
   const uiConfig = {
-    signInFlow: "redirect",
+    signInFlow: "popup",
     signInOptions: [firebase.auth.GoogleAuthProvider.PROVIDER_ID],
     callbacks: {
       signInSuccess: () => false,
