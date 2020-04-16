@@ -83,12 +83,14 @@ if(!signIn){
   return <Redirect to={"/"} />
 }
 
-const freeRoom = data.filter(item => item.occupant !== '').length;
+const freeRoom = data.filter(item => item.occupant === '').length;
+const stats= freeRoom === 0 ? 'No room' : freeRoom === 1 ? '1 room' : `${freeRoom} rooms`;
+const colorCode = stats === 'No room' ? 'tomato' : '#0c9';
 
   return (
     <div className="bg">
       <div className="container position-relative vh-100">
-        <Header src={user && user.photoURL} onClick={() => firebase.auth().signOut()} freeRoom={freeRoom} totalRoom={data.length}  />
+        <Header style={{color: colorCode}} src={user && user.photoURL} onClick={() => firebase.auth().signOut()} stats={stats}/>
         {loading ? <Loader style={{ display: loading ? 'flex' : 'none' }} /> :
           data !== undefined ?
             data.map(item =>

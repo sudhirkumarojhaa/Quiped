@@ -8,16 +8,11 @@
 
 .container {
   width: 50% !important;
-  padding: 20px;
   background-color: #fff;
 }
 
 h1,
-h2,
-h3,
-h4,
 h5,
-h6,
 p {
   margin: 0;
   text-transform: capitalize;
@@ -62,7 +57,7 @@ img {
   box-shadow: 1px 1px 10px #e3e3e3;
   padding: 15px;
   cursor: pointer;
-  margin: 15px 0;
+  margin: 5px 0;
 }
 
 button {
