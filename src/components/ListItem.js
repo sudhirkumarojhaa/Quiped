@@ -3,7 +3,7 @@ import '../design/App.css';
 
 export default function ListItem({key,name,item,enabled,onClick,occupied,user,status}) {
   return (
-    <div onClick={onClick}  style={{ display:  enabled ? 'red' : 'green' }} className="d-flex  justify-content-between align-items-center list" key={key}>
+    <div onClick={onClick} className="d-flex justify-content-between align-items-center list" key={key}>
       <p className="text-info">{name}</p>
       <div className="d-flex  justify-content-between align-items-center ">
         {item ?

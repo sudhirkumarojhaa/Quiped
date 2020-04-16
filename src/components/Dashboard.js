@@ -7,11 +7,13 @@ import Header from "./Header"
 import ListItem from "./ListItem"
 import { AuthContext } from "./auth"
 import Footer from "./Footer";
+import Loader from "./Loader";
 
 const Dashboard = () => {
 const [data, setData] = useState([]);
 const [occupiedUser, setOccupiedUser] = useState([]);
-const { user,signIn } = useContext(AuthContext)
+const { user,signIn } = useContext(AuthContext);
+const [loading,setLoading]= useState(false)
 
 useEffect(() => {
   readUserData();
@@ -55,17 +57,20 @@ const sendUserData = () => {
 };
 
 const readUserData = () => {
+  setLoading(true);
   firebase
     .database()
     .ref("Rooms/")
     .on("value", function (snapshot) {
       setData(snapshot.val().data);
+      setLoading(false)
     });
   firebase
     .database()
     .ref("Occupy/")
     .on("value", function (snapshot) {
       setOccupiedUser(snapshot.val());
+      setLoading(false)
     });
 };
 
@@ -78,15 +83,20 @@ if(!signIn){
   return <Redirect to={"/"} />
 }
 
+const freeRoom = data.filter(item => item.occupant !== '').length;
+
   return (
+    <div className="bg">
       <div className="container position-relative vh-100">
-        <Header src={user && user.photoURL} onClick={() => firebase.auth().signOut()}/>
-        {data !== undefined ?
-        data.map(item =>
-          <ListItem key={item.id} name={item.name} item={item.occupant} status={item.status} occupied={occupyUser} user={user.displayName} enabled={item.enabled} onClick={() => sendData(item.id)} />
-        ) : <p>{message}</p>}
-        <Footer/>
+        <Header src={user && user.photoURL} onClick={() => firebase.auth().signOut()} freeRoom={freeRoom} totalRoom={data.length}  />
+        {loading ? <Loader style={{ display: loading ? 'flex' : 'none' }} /> :
+          data !== undefined ?
+            data.map(item =>
+              <ListItem key={item.id} name={item.name} item={item.occupant} status={item.status} occupied={occupyUser} user={user.displayName} enabled={item.enabled} onClick={() => sendData(item.id)} />
+            ) : <p>{message}</p>}
+        <Footer />
       </div>
+    </div>
   );
 };
 

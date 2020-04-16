@@ -29,7 +29,7 @@ const Landing = () => {
   return (
       <div className="bg">
         <div className="d-flex flex-column justify-content-center  align-items-center h-75">
-          <h3 className="text-white font-weight-bold my-3 ">Quiped Application</h3>
+          <h1 className="text-white font-weight-bold my-3 ">Quiped</h1>
           <StyledFirebaseAuth
             uiConfig={uiConfig}
             firebaseAuth={firebase.auth()}
