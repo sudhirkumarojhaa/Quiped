@@ -3,11 +3,18 @@ import React, {useState, useEffect} from 'react';
 import {
   View,
   Text,
+  Button,
+  Image,
   TouchableOpacity,
   FlatList,
   SafeAreaView,
   RefreshControl,
 } from 'react-native';
+import {
+  GoogleSignin,
+  GoogleSigninButton,
+  statusCode,
+} from '@react-native-community/google-signin';
 import firebase from 'firebase';
 import {styles, color} from '../design/style';
 import Loader from '../components/Loader';
@@ -17,14 +24,27 @@ if (!firebase.apps.length) {
   firebase.initializeApp(config);
 }
 
-const Dashboard = () => {
+const Dashboard = (navigation) => {
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(false);
   const [refresh, setRefresh] = useState(false);
 
+  const {route} = navigation
+  console.log(navigation.route.params.userDetails.user.photo)
+  console.log(navigation.navigation)
   useEffect(() => {
     readUserData();
   }, []);
+
+  const signOut = async () => {
+    try {
+      await GoogleSignin.revokeAccess();
+      await GoogleSignin.signOut();
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
 
   const handleRefresh = () => {
     setRefresh(true);
@@ -91,6 +111,8 @@ const Dashboard = () => {
     <SafeAreaView style={styles.container}>
       <Loader loading={loading} text="Updating status." />
       <Text style={styles.title}>Occupancy Status</Text>
+      <Image source={navigation.route.params.userDetails.user.photo} styles={{height:200,width:200}}/>
+      <Button onPress={() => signOut() } title="Log Out"/>
       <FlatList
         keyExtractor={item => item.id.toString()}
         data={data}

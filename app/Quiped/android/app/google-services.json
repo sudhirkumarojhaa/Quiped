@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "780974138254",
+    "firebase_url": "https://quiped-4d0e3.firebaseio.com",
+    "project_id": "quiped-4d0e3",
+    "storage_bucket": "quiped-4d0e3.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:780974138254:android:c1ca668e75af981b633adf",
+        "android_client_info": {
+          "package_name": "com.quiped"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "780974138254-8molu7vi5j6incqpf6bev78k6pu5u08s.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.quiped",
+            "certificate_hash": "5e8f16062ea3cd2c4a0d547876baa6f38cabf625"
+          }
+        },
+        {
+          "client_id": "780974138254-66frntha8sn059pgi0n63giffmeu6cii.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCqAbMBq6HWBd-GImJZGxteTLuutGn8Ciw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "780974138254-66frntha8sn059pgi0n63giffmeu6cii.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -3,6 +3,7 @@ import React , {useState,useContext, useEffect} from "react";
 import {Redirect} from 'react-router-dom';
 import { message } from "../assets/config";
 import firebase from "firebase";
+import moment from "moment";
 import Header from "./Header"
 import ListItem from "./ListItem"
 import { AuthContext } from "./auth"
@@ -27,14 +28,17 @@ const sendData = (id) => {
       items.status = !items.status;
       items.occupant = user.displayName;
       items.enabled = true;
+      items.timestamp = moment().unix()
       const occupy = {
         RoomId: items.id,
         User: user.displayName,
+        timestamp:moment().unix()
       };
       firebase.database().ref("Occupy").push(occupy);
     } else if (flag && items.id === id && items.occupant === user.displayName) {
        items.status = !items.status;
        items.occupant = "";
+       items.timestamp = null;
        for (const property in occupiedUser){
         if(occupiedUser[property].User === user.displayName){
           firebase.database().ref().child("Occupy/"+property).remove()
@@ -73,7 +77,7 @@ const readUserData = () => {
       setLoading(false)
     });
 };
-
+console.log(data)
 const occupy = occupiedUser ? Array.from(Object.values(occupiedUser)) : ["Dummy User"]
 const occupyUser = occupy.map((item) => {
   return item.User
@@ -94,7 +98,7 @@ const colorCode = stats === 'No room' ? 'tomato' : '#0c9';
         {loading ? <Loader style={{ display: loading ? 'flex' : 'none' }} /> :
           data !== undefined ?
             data.map(item =>
-              <ListItem key={item.id} name={item.name} item={item.occupant} status={item.status} occupied={occupyUser} user={user.displayName} enabled={item.enabled} onClick={() => sendData(item.id)} />
+              <ListItem key={item.id} name={item.name} item={item.occupant} status={item.status} occupied={occupyUser} user={user.displayName} enabled={item.enabled} timestamp={item.timestamp} onClick={() => sendData(item.id)} />
             ) : <p>{message}</p>}
         <Footer />
       </div>
