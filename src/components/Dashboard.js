@@ -83,6 +83,9 @@ const occupyUser = occupy.map((item) => {
   return item.User
 })
 
+
+
+
 if(!signIn){
   return <Redirect to={"/"} />
 }

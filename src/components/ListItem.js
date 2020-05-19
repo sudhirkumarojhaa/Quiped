@@ -3,7 +3,7 @@ import moment from 'moment';
 import firebase from 'firebase';
 import '../design/App.css';
 
-export default function ListItem({key,name,item,enabled,onClick,occupied,user,status,timestamp}) {
+export default function ListItem({key,name,item,enabled,onClick,occupied,user,status,timestamp,}) {
   const [time,setTime] = useState(null)
   const [extend,setExtend] = useState(false)
 
@@ -14,7 +14,7 @@ export default function ListItem({key,name,item,enabled,onClick,occupied,user,st
     if(timestamp === null){
       setExtend(false)
     }
-  },[])
+  },[timestamp])
 
 
 
@@ -26,7 +26,8 @@ export default function ListItem({key,name,item,enabled,onClick,occupied,user,st
     if(timestamp !== undefined && a.diff(b,'minutes') > 5){
       console.log(timestamp)
       setTime(a.diff(b,'minutes'))  
-    } else if (a.diff(b,'minutes') <= 0){
+    } 
+    if (a.diff(b,'minutes') <= 0){
       console.log(item)
        firebase
         .database()
@@ -64,29 +65,30 @@ export default function ListItem({key,name,item,enabled,onClick,occupied,user,st
 
   const extendTime = () => {
     firebase
-        .database()
-        .ref("Rooms/data")
-        .on("value", function (snapshot) {
-          for(const property in snapshot.val()){
-            if(snapshot.val()[property].occupant === item){
-              console.log(item)
-              const extendTime = {
-                enabled:true,
-                id:property+1,
-                name:name,
-                occupant:item,
-                status:true,
-                timestamp:moment().unix()
-              }
-              console.log(extendTime)
-              firebase.database().ref("Rooms/data").child(property).set(extendTime);
-            } 
+    .database()
+    .ref("Rooms/data")
+    .on("value", function (snapshot) {
+      for(const property in snapshot.val()){
+        if(snapshot.val()[property].occupant === item){
+          console.log(item)
+          const extendedTime = {
+            enabled:true,
+            id:property+1,
+            name:name,
+            occupant:item,
+            status:true,
+            timestamp:moment().unix()
           }
-        })
-      setExtend(false)
+          console.log(extendedTime)
+          console.log(property)
+          firebase.database().ref("Rooms/data").child(property).set(extendedTime);    
+          setExtend(false)
+        } 
+      }
+    })
   }
   
-  
+  console.log(timestamp)
   return (
     <div onClick={onClick} className="d-flex justify-content-between align-items-center list" key={key}>
       <p className="text-info">{name}</p>
