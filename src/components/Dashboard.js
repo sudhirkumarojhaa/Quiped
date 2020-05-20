@@ -81,7 +81,7 @@ const readUserData = () => {
 };
 
 const remainingTime = (timestamp) => {
-  const a = moment(moment(moment.unix(timestamp).toLocaleString()).add(10,'m').toLocaleString())
+  const a = moment(moment(moment.unix(timestamp).toLocaleString()).add(60,'m').toLocaleString())
   const b = moment.unix(moment().unix()).toLocaleString()
   return a.diff(b,'minutes')
 }
@@ -105,7 +105,7 @@ const lessThanZero = (roomId,roomName,occupant) => {
         firebase.database().ref().child("Occupy/"+occupantProp).remove()
       }
     }
-  }) 
+  })
   firebase.database().ref("Rooms/data").child(property).set(updateRoom);
 }
 
@@ -139,37 +139,37 @@ const colorCode = stats === 'No room' ? 'tomato' : '#0c9';
   return (
     <div className="bg">
       <div className="container position-relative vh-100">
-        <Header 
-          style={{color: colorCode}} 
-          src={user && user.photoURL} 
-          onClick={() => firebase.auth().signOut()} 
+        <Header
+          style={{color: colorCode}}
+          src={user && user.photoURL}
+          onClick={() => firebase.auth().signOut()}
           stats={stats}
         />
         {loading ? <Loader style={{ display: loading ? 'flex' : 'none' }} /> :
           data !== undefined ?
             data.map(item => {
-              return <ListItem 
-              keyValue={item.id} 
-              name={item.name} 
-              item={item.occupant} 
-              status={item.status} 
-              occupied={occupyUser} 
-              user={user.displayName} 
-              enabled={item.enabled} 
+              return <ListItem
+              keyValue={item.id}
+              name={item.name}
+              item={item.occupant}
+              status={item.status}
+              occupied={occupyUser}
+              user={user.displayName}
+              enabled={item.enabled}
               time={
-                isNaN(remainingTime(item.timestamp)) 
-                  ? null 
-                :  
-                remainingTime(item.timestamp) <= 0 
-                  ? lessThanZero(item.id,item.name,item.occupant) 
+                isNaN(remainingTime(item.timestamp))
+                  ? null
+                :
+                remainingTime(item.timestamp) <= 0
+                  ? lessThanZero(item.id,item.name,item.occupant)
                 : remainingTime(item.timestamp) > 0 && remainingTime(item.timestamp) <= 5
-                  ? remainingTime(item.timestamp) +  " mins left" 
-                : 
-                  remainingTime(item.timestamp) + " mins left"  
-              } 
-              onClick={() => sendData(item.id)} 
+                  ? remainingTime(item.timestamp) +  " mins left"
+                :
+                  remainingTime(item.timestamp) + " mins left"
+              }
+              onClick={() => sendData(item.id)}
               handleExtend = {() => extendTime(item.id,item.name,item.occupant)}
-              showExtend={item.status && remainingTime(item.timestamp) <= 8}
+              showExtend={item.status && remainingTime(item.timestamp) <= 5}
             />
           }) : <p>{message}</p>}
         <Footer />

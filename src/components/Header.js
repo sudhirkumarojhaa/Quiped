@@ -12,9 +12,10 @@ export default function Header({src,onClick,stats,style}) {
           </button>
         </div>
       </div>
-      <li className="small font-weight-bold text-dark">Rooms already occupied by other members can't be occupied.</li>
-      <li className="small font-weight-bold text-dark">You can only occupy one room at a time which are vacant.</li>
-      <li className="small font-weight-bold text-dark">At the end of the meeting please click again to vacate.</li>
+      <li className="small text-dark">Rooms already occupied by other members can't be occupied.</li>
+      <li className="small text-dark">You can only occupy one vacant room at a time.</li>
+      <li className="small text-dark">Extend button would be visible five minutes before the end time. Clicking on it will add another hour in your end time.</li>
+      <li className="small text-dark">Do remember to vacate by clicking again at the end of the meeting.</li>
     </div>
   )
 }
