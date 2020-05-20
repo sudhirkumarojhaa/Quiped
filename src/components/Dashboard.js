@@ -14,10 +14,12 @@ const Dashboard = () => {
 const [data, setData] = useState([]);
 const [occupiedUser, setOccupiedUser] = useState([]);
 const { user,signIn } = useContext(AuthContext);
-const [loading,setLoading]= useState(false)
+const [loading,setLoading]= useState(false);
 
 useEffect(() => {
-  readUserData();
+  setInterval(() => {
+    readUserData();
+  }, 1000);
 }, []);
 
 const sendData = (id) => {
@@ -77,14 +79,54 @@ const readUserData = () => {
       setLoading(false)
     });
 };
-console.log(data)
+
+const remainingTime = (timestamp) => {
+  const a = moment(moment(moment.unix(timestamp).toLocaleString()).add(10,'m').toLocaleString())
+  const b = moment.unix(moment().unix()).toLocaleString()
+  return a.diff(b,'minutes')
+}
+
+const lessThanZero = (roomId,roomName,occupant) => {
+  const property = roomId-1
+  const updateRoom = {
+    enabled:true,
+    id:roomId,
+    name:roomName,
+    occupant:"",
+    status:false,
+    timestamp:null
+  }
+  firebase
+  .database()
+  .ref("Occupy/")
+  .on("value", function (snapshot) {
+    for (const occupantProp in snapshot.val()){
+      if(snapshot.val()[occupantProp].User === occupant){
+        firebase.database().ref().child("Occupy/"+occupantProp).remove()
+      }
+    }
+  }) 
+  firebase.database().ref("Rooms/data").child(property).set(updateRoom);
+}
+
+const extendTime = (roomId,roomName,occupantName) => {
+  const property = roomId-1
+  const updateRoom = {
+    enabled:true,
+    id:roomId,
+    name:roomName,
+    occupant:occupantName,
+    status:true,
+    timestamp:moment().unix()
+  }
+  firebase.database().ref("Rooms/data").child(property).set(updateRoom);
+}
+
+
 const occupy = occupiedUser ? Array.from(Object.values(occupiedUser)) : ["Dummy User"]
 const occupyUser = occupy.map((item) => {
   return item.User
 })
-
-
-
 
 if(!signIn){
   return <Redirect to={"/"} />
@@ -97,12 +139,39 @@ const colorCode = stats === 'No room' ? 'tomato' : '#0c9';
   return (
     <div className="bg">
       <div className="container position-relative vh-100">
-        <Header style={{color: colorCode}} src={user && user.photoURL} onClick={() => firebase.auth().signOut()} stats={stats}/>
+        <Header 
+          style={{color: colorCode}} 
+          src={user && user.photoURL} 
+          onClick={() => firebase.auth().signOut()} 
+          stats={stats}
+        />
         {loading ? <Loader style={{ display: loading ? 'flex' : 'none' }} /> :
           data !== undefined ?
-            data.map(item =>
-              <ListItem key={item.id} name={item.name} item={item.occupant} status={item.status} occupied={occupyUser} user={user.displayName} enabled={item.enabled} timestamp={item.timestamp} onClick={() => sendData(item.id)} />
-            ) : <p>{message}</p>}
+            data.map(item => {
+              return <ListItem 
+              keyValue={item.id} 
+              name={item.name} 
+              item={item.occupant} 
+              status={item.status} 
+              occupied={occupyUser} 
+              user={user.displayName} 
+              enabled={item.enabled} 
+              time={
+                isNaN(remainingTime(item.timestamp)) 
+                  ? null 
+                :  
+                remainingTime(item.timestamp) <= 0 
+                  ? lessThanZero(item.id,item.name,item.occupant) 
+                : remainingTime(item.timestamp) > 0 && remainingTime(item.timestamp) <= 5
+                  ? remainingTime(item.timestamp) +  " mins left" 
+                : 
+                  remainingTime(item.timestamp) + " mins left"  
+              } 
+              onClick={() => sendData(item.id)} 
+              handleExtend = {() => extendTime(item.id,item.name,item.occupant)}
+              showExtend={item.status && remainingTime(item.timestamp) <= 8}
+            />
+          }) : <p>{message}</p>}
         <Footer />
       </div>
     </div>
