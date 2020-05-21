@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>780974138254-00q1n1utfm5mahdqjj7rcik3qpmv71f5.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.780974138254-00q1n1utfm5mahdqjj7rcik3qpmv71f5</string>
+	<key>ANDROID_CLIENT_ID</key>
+	<string>780974138254-8molu7vi5j6incqpf6bev78k6pu5u08s.apps.googleusercontent.com</string>
+	<key>API_KEY</key>
+	<string>AIzaSyCyCsdqmmDJmB3xyC45mi9xOZ_705alQhw</string>
+	<key>GCM_SENDER_ID</key>
+	<string>780974138254</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.quiped</string>
+	<key>PROJECT_ID</key>
+	<string>quiped-4d0e3</string>
+	<key>STORAGE_BUCKET</key>
+	<string>quiped-4d0e3.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:780974138254:ios:d952d9fab3046241633adf</string>
+	<key>DATABASE_URL</key>
+	<string>https://quiped-4d0e3.firebaseio.com</string>
+</dict>
+</plist>

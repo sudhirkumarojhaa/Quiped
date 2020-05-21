@@ -3,9 +3,8 @@ import loader from "../assets/loader.gif";
 
 export default function Loader(style) {
   return (
-    <div className="loading d-flex justify-content-center align-items-center h-75 flex-column" style={style}>
+    <div className="loading d-flex justify-content-center align-items-center flex-column" style={style}>
       <img src={loader} alt="loader" />
-      <p className="text-info">Updating status ...</p>
     </div>
   )
 }

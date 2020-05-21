@@ -1,11 +1,11 @@
 import React, {useEffect, useState} from 'react';
-import {Text, View, StyleSheet} from 'react-native';
+import {Text, View, StyleSheet,ImageBackground} from 'react-native';
 import {
   GoogleSignin,
   GoogleSigninButton,
   statusCode,
 } from '@react-native-community/google-signin';
-
+import {styles} from '../design/style'
 const Login = ({navigation}) => {
   const [user, setUser] = useState('sagar');
 
@@ -45,13 +45,15 @@ const Login = ({navigation}) => {
     }
   };
 
-  console.log(user);
-
   return (
     <View style={styles.login}>
+      <ImageBackground 
+        source={{uri:require('../assets/background.jpeg')}}
+        style={{width:100,height:100,resizeMode:"cover",justifyContent:"center",}}
+      />
       <Text style={styles.heading}>Login</Text>
       <GoogleSigninButton
-        style={{width: 192, height: 48}}
+        style={{width: 192, height: 48,}}
         size={GoogleSigninButton.Size.Wide}
         color={GoogleSigninButton.Color.Dark}
         onPress={() => signIn()}
@@ -60,15 +62,6 @@ const Login = ({navigation}) => {
   );
 };
 
-const styles = StyleSheet.create({
-  login: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  heading: {
-    fontSize: 25,
-  },
-});
+
 
 export default Login;

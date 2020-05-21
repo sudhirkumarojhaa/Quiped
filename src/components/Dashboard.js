@@ -138,14 +138,16 @@ const colorCode = stats === 'No room' ? 'tomato' : '#0c9';
 
   return (
     <div className="bg">
-      <div className="container position-relative vh-100">
+      <div className="bg-white position-relative vh-100">
+        <div className="container">
         <Header
           style={{color: colorCode}}
           src={user && user.photoURL}
           onClick={() => firebase.auth().signOut()}
           stats={stats}
+          show={freeRoom !== 0 ? true : false}
         />
-        {loading ? <Loader style={{ display: loading ? 'flex' : 'none' }} /> :
+        {loading ? <Loader style={{ display: loading ? 'flex' : 'none', backgroundColor: 'red',}} /> :
           data !== undefined ?
             data.map(item => {
               return <ListItem
@@ -173,6 +175,7 @@ const colorCode = stats === 'No room' ? 'tomato' : '#0c9';
             />
           }) : <p>{message}</p>}
         <Footer />
+        </div>
       </div>
     </div>
   );

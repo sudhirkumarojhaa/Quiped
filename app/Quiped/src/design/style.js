@@ -44,4 +44,23 @@ export const styles = StyleSheet.create({
     borderRadius: 15,
     borderWidth: 10,
   },
+  stretch: {
+    width: 50,
+    height: 50,
+    borderRadius:50,
+  },
+  login: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  heading: {
+    fontSize: 25,
+  },
+  small:{
+    fontSize: 18,
+    padding: 10,
+    color: color.brand,
+    textTransform: 'capitalize',
+  }
 });

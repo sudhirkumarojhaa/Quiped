@@ -18,6 +18,7 @@
 		2D02E4BF1E0B4AB3006451C7 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
 		2DCD954D1E0B4F2C00145EB5 /* QuipedTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* QuipedTests.m */; };
 		793AA51407E570C7C5103C3E /* libPods-QuipedTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E59527858F7ABAE7719F22B1 /* libPods-QuipedTests.a */; };
+		7CF921F12475102B008EF590 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 7CF921F02475102B008EF590 /* GoogleService-Info.plist */; };
 		CF2A2ED57C178B791BF94980 /* libPods-Quiped-tvOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 721F19126D29D44F6503B12A /* libPods-Quiped-tvOS.a */; };
 		FB6B44A93B4B8D569C3E346C /* libPods-Quiped-tvOSTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B68C0DF5EC44FDD2712C89BA /* libPods-Quiped-tvOSTests.a */; };
 /* End PBXBuildFile section */
@@ -58,6 +59,7 @@
 		67F38A71975B188ECA35C52E /* libPods-Quiped.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Quiped.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		721F19126D29D44F6503B12A /* libPods-Quiped-tvOS.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Quiped-tvOS.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		7A31E441C6F300471D6D71AC /* Pods-QuipedTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-QuipedTests.debug.xcconfig"; path = "Target Support Files/Pods-QuipedTests/Pods-QuipedTests.debug.xcconfig"; sourceTree = "<group>"; };
+		7CF921F02475102B008EF590 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../../../Downloads/GoogleService-Info.plist"; sourceTree = "<group>"; };
 		7EE0FDC557A4FF8822439B57 /* Pods-Quiped.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Quiped.release.xcconfig"; path = "Target Support Files/Pods-Quiped/Pods-Quiped.release.xcconfig"; sourceTree = "<group>"; };
 		86093ECDE1FA137F4F8377F6 /* Pods-QuipedTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-QuipedTests.release.xcconfig"; path = "Target Support Files/Pods-QuipedTests/Pods-QuipedTests.release.xcconfig"; sourceTree = "<group>"; };
 		8C30C1C500CBF5A6578D3AA7 /* Pods-Quiped.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Quiped.debug.xcconfig"; path = "Target Support Files/Pods-Quiped/Pods-Quiped.debug.xcconfig"; sourceTree = "<group>"; };
@@ -131,6 +133,7 @@
 				13B07FB51A68108700A75B9A /* Images.xcassets */,
 				13B07FB61A68108700A75B9A /* Info.plist */,
 				13B07FB11A68108700A75B9A /* LaunchScreen.xib */,
+				7CF921F02475102B008EF590 /* GoogleService-Info.plist */,
 				13B07FB71A68108700A75B9A /* main.m */,
 			);
 			name = Quiped;
@@ -161,7 +164,6 @@
 				7A31E441C6F300471D6D71AC /* Pods-QuipedTests.debug.xcconfig */,
 				86093ECDE1FA137F4F8377F6 /* Pods-QuipedTests.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
@@ -230,6 +232,7 @@
 				13B07F8C1A680F5B00A75B9A /* Frameworks */,
 				13B07F8E1A680F5B00A75B9A /* Resources */,
 				00DD1BFF1BD5951E006B06BC /* Bundle React Native code and images */,
+				432E4A56191BE96724B8835C /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -308,6 +311,7 @@
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
 			knownRegions = (
+				English,
 				en,
 				Base,
 			);
@@ -338,6 +342,7 @@
 			files = (
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
 				13B07FBD1A68108700A75B9A /* LaunchScreen.xib in Resources */,
+				7CF921F12475102B008EF590 /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -408,6 +413,24 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "export NODE_BINARY=node\n../node_modules/react-native/scripts/react-native-xcode.sh";
+		};
+		432E4A56191BE96724B8835C /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Quiped/Pods-Quiped-resources.sh",
+				"${PODS_ROOT}/GoogleSignIn/Resources/GoogleSignIn.bundle",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/GoogleSignIn.bundle",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Quiped/Pods-Quiped-resources.sh\"\n";
+			showEnvVarsInLog = 0;
 		};
 		6ACB05BF62590FDEEDF71431 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
