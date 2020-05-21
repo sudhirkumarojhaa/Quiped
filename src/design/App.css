@@ -23,7 +23,7 @@ p {
 .loading {
   width: 100%;
   height: 70vh;
-  background-color: white;
+  background-color: #fff;
 }
 
 .title {
@@ -99,6 +99,10 @@ input {
 }
 
 @media screen and (max-width: 768px) {
+  .loading{
+    height:100%
+  }
+
   li,
   .logout  {
     display: none;

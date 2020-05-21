@@ -9,7 +9,6 @@ import Footer from "./Footer";
 import { AuthContext } from "./auth"
 import StyledFirebaseAuth from "react-firebaseui/StyledFirebaseAuth";
 
-
 if (!firebase.apps.length) {
   firebase.initializeApp(config);
 }
@@ -29,7 +28,6 @@ const Landing = () => {
     }
   },[signIn,history])
 
-  
   const [loading,setLoading] = useState(false)
   const uiConfig = {
     signInFlow: "popup",
@@ -38,8 +36,6 @@ const Landing = () => {
       signInSuccess: () => false,
     },
   };
-
-  
 
   return (
     loading ? 
