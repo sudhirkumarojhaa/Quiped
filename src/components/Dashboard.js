@@ -139,7 +139,7 @@ const colorCode = stats === 'No room' ? 'tomato' : '#0c9';
   return (
     <div className="bg">
       <div className="bg-white position-relative vh-100">
-        <div className="container">
+        <div className="container vh-100">
         <Header
           style={{color: colorCode}}
           src={user && user.photoURL}

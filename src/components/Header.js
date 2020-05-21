@@ -3,7 +3,7 @@ import off from "../assets/off.png";
 
 export default function Header({src,onClick,stats,style,show}) {
   return (
-    <div className="pb-3">
+    <div className="pb-3 header">
       <div className="d-flex justify-content-between align-items-center">
         {show ? <h6 className="my-3 font-weight-bold" style={style}>Occupancy Status: {stats} available </h6> :  <h6 className="my-3 font-weight-bold text-info">HDR Conference Room Management</h6> }
         <div className="d-flex ml-3">
