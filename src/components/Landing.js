@@ -23,10 +23,9 @@ const Landing = () => {
     } else{
       setTimeout(() => {
         setLoading(false)
-      }, 1000);
+      }, 5000); 
     }
   },[signIn,history])
-  
 
   const [loading,setLoading] = useState(false)
   const uiConfig = {
