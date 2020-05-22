@@ -37,7 +37,7 @@ const Landing = () => {
   };
 
   return (
-    loading ? 
+    loading ?
       <Loader style={{ display: loading ? 'flex' : 'none'}} /> :
         <div className="bg">
           <div className="d-flex flex-column justify-content-center  align-items-center h-100">
@@ -48,8 +48,7 @@ const Landing = () => {
               firebaseAuth={firebase.auth()}
             />
           </div>
-           <Footer />
-           </div>
+        </div>
   );
 };
 
