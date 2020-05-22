@@ -19,7 +19,6 @@ const Landing = () => {
   useEffect(() => {
     setLoading(true)
     if(signIn){
-      setLoading(true)
       history.push('/dashboard')
     } else{
       setTimeout(() => {
@@ -27,6 +26,7 @@ const Landing = () => {
       }, 1000);
     }
   },[signIn,history])
+  
 
   const [loading,setLoading] = useState(false)
   const uiConfig = {

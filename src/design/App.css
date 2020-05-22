@@ -91,11 +91,17 @@ input {
 .profile {
   border-radius: 50%;
   object-fit: contain;
-  width: 40px;
+  width: 25px;
 }
 
 .off {
   display: none;
+}
+
+.timebox {
+  top:50%;
+  left:50%;
+  transform: translate(50%,50%);
 }
 
 @media screen and (max-width: 768px) {
@@ -130,4 +136,6 @@ input {
   .container {
     width: 100% !important;
   }
+
+
 }

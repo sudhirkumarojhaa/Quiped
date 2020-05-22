@@ -2,9 +2,9 @@
 import React from 'react'
 import '../design/App.css';
 
-export default function ListItem({keyValue,name,item,enabled,onClick,occupied,user,status,time,showExtend,handleExtend}) {
+export default function ListItem({keyValue,name,item,enabled,onClick,occupied,user,status,time,showExtend,handleExtend,fade}) {
   return (
-    <div className="d-flex justify-content-between align-items-center list" >
+    <div className="d-flex justify-content-between align-items-center list" style={{opacity: fade ? 0 : 1}} >
       <p className="text-info font-weight-bold" key={keyValue}>{name}</p>
       <div className="d-flex  justify-content-between ">
         <p className="tab text-info px-2">{time}</p>

@@ -12,7 +12,9 @@ import Loader from "./Loader";
 
 const Dashboard = () => {
 const [data, setData] = useState([]);
+const [id, setID] = useState(null);
 const [occupiedUser, setOccupiedUser] = useState([]);
+const [toggleTime,setToggleTime] = useState(false);
 const { user,signIn } = useContext(AuthContext);
 const [loading,setLoading]= useState(false);
 
@@ -22,7 +24,7 @@ useEffect(() => {
   }, 1000);
 }, []);
 
-const sendData = (id) => {
+const sendData = (id,timeLimit) => {
   let flag = data.some((items) => items.occupant === user.displayName);
   let arr;
   arr = data.map((items) => {
@@ -30,17 +32,21 @@ const sendData = (id) => {
       items.status = !items.status;
       items.occupant = user.displayName;
       items.enabled = true;
-      items.timestamp = moment().unix()
+      items.timestamp = moment().unix();
+      items.timeLimit = timeLimit
       const occupy = {
         RoomId: items.id,
         User: user.displayName,
         timestamp:moment().unix()
       };
       firebase.database().ref("Occupy").push(occupy);
+      setID(null)
+      setToggleTime(false)
     } else if (flag && items.id === id && items.occupant === user.displayName) {
        items.status = !items.status;
        items.occupant = "";
        items.timestamp = null;
+       items.timeLimit = null;
        for (const property in occupiedUser){
         if(occupiedUser[property].User === user.displayName){
           firebase.database().ref().child("Occupy/"+property).remove()
@@ -69,7 +75,6 @@ const readUserData = () => {
     .ref("Rooms/")
     .on("value", function (snapshot) {
       setData(snapshot.val().data);
-      setLoading(false)
     });
   firebase
     .database()
@@ -77,11 +82,11 @@ const readUserData = () => {
     .on("value", function (snapshot) {
       setOccupiedUser(snapshot.val());
       setLoading(false)
-    });
+    }); 
 };
 
-const remainingTime = (timestamp) => {
-  const a = moment(moment(moment.unix(timestamp).toLocaleString()).add(60,'m').toLocaleString())
+const remainingTime = (timestamp,timeLimit) => {
+  const a = moment(moment(moment.unix(timestamp).toLocaleString()).add(timeLimit,'m').toLocaleString())
   const b = moment.unix(moment().unix()).toLocaleString()
   return a.diff(b,'minutes')
 }
@@ -109,7 +114,7 @@ const lessThanZero = (roomId,roomName,occupant) => {
   firebase.database().ref("Rooms/data").child(property).set(updateRoom);
 }
 
-const extendTime = (roomId,roomName,occupantName) => {
+const extendTime = (roomId,roomName,occupantName,roomTimestamp,extendLimit) => {
   const property = roomId-1
   const updateRoom = {
     enabled:true,
@@ -117,11 +122,16 @@ const extendTime = (roomId,roomName,occupantName) => {
     name:roomName,
     occupant:occupantName,
     status:true,
-    timestamp:moment().unix()
+    timestamp:roomTimestamp,
+    timeLimit:extendLimit + 10
   }
   firebase.database().ref("Rooms/data").child(property).set(updateRoom);
 }
 
+const setTime = (id) => {
+  setID(id);
+  setToggleTime(true)
+}
 
 const occupy = occupiedUser ? Array.from(Object.values(occupiedUser)) : ["Dummy User"]
 const occupyUser = occupy.map((item) => {
@@ -139,7 +149,7 @@ const colorCode = stats === 'No room' ? 'tomato' : '#0c9';
   return (
     <div className="bg">
       <div className="bg-white position-relative vh-100">
-        <div className="container">
+        <div className="container position-relative">
         <Header
           style={{color: colorCode}}
           src={user && user.photoURL}
@@ -147,7 +157,16 @@ const colorCode = stats === 'No room' ? 'tomato' : '#0c9';
           stats={stats}
           show={freeRoom !== 0 ? true : false}
         />
-        {loading ? <Loader style={{ display: loading ? 'flex' : 'none', backgroundColor: 'red',}} /> :
+        {toggleTime ? 
+          <div className="d-flex flex-column bg-white justify-content-center align-items-center position-absolute w-100 h-100" >
+            <p className="tag text-center bg-info p-2 w-50 text-white mb-2 hand" onClick={()=> sendData(id,15)}>15 mins</p>
+            <p className="tag text-center bg-info p-2 w-50 text-white mb-2 hand" onClick={()=> sendData(id,30)}>30 mins</p>
+            <p className="tag text-center bg-info p-2 w-50 text-white mb-2 hand" onClick={()=> sendData(id,45)}>45 mins</p>
+            <p className="tag text-center bg-info p-2 w-50 text-white mb-2 hand" onClick={()=> sendData(id,60)}>60 mins</p>
+          </div> 
+          : null 
+        }
+        {loading ? <Loader style={{ display: loading ? 'flex' : 'none'}} /> :
           data !== undefined ?
             data.map(item => {
               return <ListItem
@@ -162,18 +181,32 @@ const colorCode = stats === 'No room' ? 'tomato' : '#0c9';
                 isNaN(remainingTime(item.timestamp))
                   ? null
                 :
-                remainingTime(item.timestamp) <= 0
+                remainingTime(item.timestamp,item.timeLimit) <= 0
                   ? lessThanZero(item.id,item.name,item.occupant)
-                : remainingTime(item.timestamp) > 0 && remainingTime(item.timestamp) <= 5
-                  ? remainingTime(item.timestamp) +  " mins left"
+                : remainingTime(item.timestamp,item.timeLimit) > 0 && remainingTime(item.timestamp,item.timeLimit) <= 5
+                  ? remainingTime(item.timestamp,item.timeLimit) +  " mins left"
                 :
-                  remainingTime(item.timestamp) + " mins left"
+                  remainingTime(item.timestamp,item.timeLimit) + " mins left"
               }
-              onClick={() => sendData(item.id)}
-              handleExtend = {() => extendTime(item.id,item.name,item.occupant)}
-              showExtend={item.status && remainingTime(item.timestamp) <= 5}
+              onClick={item.status ? () => sendData(item.id) : () => setTime(item.id)}
+              handleExtend = {() => extendTime(item.id,item.name,item.occupant,item.timestamp,item.timeLimit)}
+              showExtend={item.status && remainingTime(item.timestamp,item.timeLimit) <= 5}
+              fade={id!==null}
             />
           }) : <p>{message}</p>}
+          {id === null ?
+            <div className="fixed-bottom mb-5 d-flex justify-content-around align-items-center">
+              <div className="d-flex">
+                <div className="box" style={{ borderColor:'#999'}}></div>
+                <p className="small mx-2">Press to Book</p>
+              </div>
+              <div className="d-flex">
+                <div className="box" style={{ borderColor:'#0c9'}}></div>
+                <p className="small mx-2">Press to Vacate</p>
+              </div>
+            </div> 
+            : null 
+          }
         <Footer />
         </div>
       </div>
