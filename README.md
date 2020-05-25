@@ -1,17 +1,9 @@
 # Quiped App
-Quiped App is build to get the current status of the rooms i.e either they are occupied or vacant right now. This application can be used in conference rooms, hotels etc to know the status and save time. 
+
+### Tired of going from one conference room to another just to find the occupied? Enroll in Quiped, A Conference room management application which enables you to see vacant rooms and even occupy one sitting at your workstation. Enjoy !
+
 ![](https://raw.githubusercontent.com/sudhirkumarojhaa/Quiped/master/public/icon.png)
 
-## Live React application
+## Live Demo 
 #### [https://sudhirkumarojhaa.github.io/Quiped/](https://sudhirkumarojhaa.github.io/Quiped/)
 
-## Live React Native Application
-```
-cd app/Quiped
-yarn
-```
-### Depending on the platform you want to run: 
-```
-react-native run-ios
-react-native run-android
-```
