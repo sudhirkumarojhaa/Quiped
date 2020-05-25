@@ -1,6 +1,6 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "61a3aef0aa3e8c98da9e965fd3390001",
+    "revision": "1c73d5be9c3594029d7719132a5d9962",
     "url": "/Quiped/index.html"
   },
   {
