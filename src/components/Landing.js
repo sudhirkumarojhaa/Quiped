@@ -5,7 +5,6 @@ import firebase from "firebase";
 import "../design/App.css";
 import { config } from "../assets/config";
 import Loader from "./Loader";
-import Footer from "./Footer";
 import { AuthContext } from "./auth"
 import StyledFirebaseAuth from "react-firebaseui/StyledFirebaseAuth";
 
@@ -23,7 +22,7 @@ const Landing = () => {
     } else{
       setTimeout(() => {
         setLoading(false)
-      }, 5000); 
+      }, 5000);
     }
   },[signIn,history])
 

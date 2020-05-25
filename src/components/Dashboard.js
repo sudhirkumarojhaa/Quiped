@@ -82,7 +82,7 @@ const readUserData = () => {
     .on("value", function (snapshot) {
       setOccupiedUser(snapshot.val());
       setLoading(false)
-    }); 
+    });
 };
 
 const remainingTime = (timestamp,timeLimit) => {
@@ -123,7 +123,7 @@ const extendTime = (roomId,roomName,occupantName,roomTimestamp,extendLimit) => {
     occupant:occupantName,
     status:true,
     timestamp:roomTimestamp,
-    timeLimit:extendLimit + 10
+    timeLimit:extendLimit + 15
   }
   firebase.database().ref("Rooms/data").child(property).set(updateRoom);
 }
@@ -144,7 +144,7 @@ if(!signIn){
 
 const freeRoom = data.filter(item => item.occupant === '').length;
 const stats= freeRoom === 0 ? 'No room' : freeRoom === 1 ? '1 room' : `${freeRoom} rooms`;
-const colorCode = stats === 'No room' ? 'tomato' : '#0c9';
+const colorCode = stats === 'No room' ? 'tomato' : '#38a2b8';
 
   return (
     <div className="bg">
@@ -157,14 +157,15 @@ const colorCode = stats === 'No room' ? 'tomato' : '#0c9';
           stats={stats}
           show={freeRoom !== 0 ? true : false}
         />
-        {toggleTime ? 
+        {toggleTime ?
           <div className="d-flex flex-column bg-white justify-content-center align-items-center position-absolute w-100 h-100" >
-            <p className="tag text-center bg-info p-2 w-50 text-white mb-2 hand" onClick={()=> sendData(id,15)}>15 mins</p>
-            <p className="tag text-center bg-info p-2 w-50 text-white mb-2 hand" onClick={()=> sendData(id,30)}>30 mins</p>
-            <p className="tag text-center bg-info p-2 w-50 text-white mb-2 hand" onClick={()=> sendData(id,45)}>45 mins</p>
-            <p className="tag text-center bg-info p-2 w-50 text-white mb-2 hand" onClick={()=> sendData(id,60)}>60 mins</p>
-          </div> 
-          : null 
+            <h6 className="font-weight-bold p-2 text-center">Select Time period for the meeting. </h6>
+            <p className="tag font-weight-bold text-center bg-info p-2 w-50 text-white mb-2 hand" onClick={()=> sendData(id,15)}>15 mins</p>
+            <p className="tag font-weight-bold text-center bg-info p-2 w-50 text-white mb-2 hand" onClick={()=> sendData(id,30)}>30 mins</p>
+            <p className="tag font-weight-bold text-center bg-info p-2 w-50 text-white mb-2 hand" onClick={()=> sendData(id,45)}>45 mins</p>
+            <p className="tag font-weight-bold text-center bg-info p-2 w-50 text-white mb-2 hand" onClick={()=> sendData(id,60)}>60 mins</p>
+          </div>
+          : null
         }
         {loading ? <Loader style={{ display: loading ? 'flex' : 'none'}} /> :
           data !== undefined ?
@@ -195,17 +196,19 @@ const colorCode = stats === 'No room' ? 'tomato' : '#0c9';
             />
           }) : <p>{message}</p>}
           {id === null ?
-            <div className="fixed-bottom mb-5 d-flex justify-content-around align-items-center">
-              <div className="d-flex">
+            <div className="fixed-bottom  mb-5 d-flex justify-content-around  align-items-center">
+              <div className="d-flex align-items-center">
+                <p className="small mx-2">Press</p>
                 <div className="box" style={{ borderColor:'#999'}}></div>
-                <p className="small mx-2">Press to Book</p>
+                <p className="small mx-2">to Book a room.</p>
               </div>
-              <div className="d-flex">
+              <div className="d-flex align-items-center">
+                <p className="small mx-2">Press</p>
                 <div className="box" style={{ borderColor:'#0c9'}}></div>
-                <p className="small mx-2">Press to Vacate</p>
+                <p className="small mx-2"> to Vacate a room.</p>
               </div>
-            </div> 
-            : null 
+            </div>
+            : null
           }
         <Footer />
         </div>
