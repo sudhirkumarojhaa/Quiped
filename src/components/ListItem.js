@@ -12,7 +12,7 @@ export default function ListItem({keyValue,name,item,enabled,onClick,occupied,us
         {item ?
           <p className="tab text-success px-1">{item}</p> : <p className="tab text-info px-1">Vacant</p>
         }
-        <div style={{ borderColor:  status ? '#0c9' : '#999',display: status ? 'block' : occupied.indexOf(user) === -1 && enabled  ? 'block' : 'none' }}
+        <div style={{ borderColor:  status ? '#0c9' : '#999',display: status ? 'block' : !occupied && enabled  ? 'block' : 'none' }}
           className="box"
           onClick={onClick} >
         </div>

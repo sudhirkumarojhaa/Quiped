@@ -114,6 +114,12 @@ input {
   transform: translate(50%,50%);
 }
 
+.close{
+  top:20px;
+  right:20px;
+  cursor:pointer;
+}
+
 @media screen and (max-width: 768px) {
   .loading {
     height: 100%

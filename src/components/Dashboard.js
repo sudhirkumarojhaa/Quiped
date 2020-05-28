@@ -19,9 +19,11 @@ const { user,signIn } = useContext(AuthContext);
 const [loading,setLoading]= useState(false);
 
 useEffect(() => {
+  authenticate();
   setInterval(() => {
     readUserData();
   }, 1000);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
 }, []);
 
 const sendData = (id,timeLimit) => {
@@ -34,12 +36,6 @@ const sendData = (id,timeLimit) => {
       items.enabled = true;
       items.timestamp = moment().unix();
       items.timeLimit = timeLimit
-      const occupy = {
-        RoomId: items.id,
-        User: user.displayName,
-        timestamp:moment().unix()
-      };
-      firebase.database().ref("Occupy").push(occupy);
       setID(null)
       setToggleTime(false)
     } else if (flag && items.id === id && items.occupant === user.displayName) {
@@ -47,11 +43,6 @@ const sendData = (id,timeLimit) => {
        items.occupant = "";
        items.timestamp = null;
        items.timeLimit = null;
-       for (const property in occupiedUser){
-        if(occupiedUser[property].User === user.displayName){
-          firebase.database().ref().child("Occupy/"+property).remove()
-        }
-      }
     }
     return items;
   });
@@ -75,12 +66,7 @@ const readUserData = () => {
     .ref("Rooms/")
     .on("value", function (snapshot) {
       setData(snapshot.val().data);
-    });
-  firebase
-    .database()
-    .ref("Occupy/")
-    .on("value", function (snapshot) {
-      setOccupiedUser(snapshot.val());
+      setOccupiedUser(snapshot.val().data.some(item => item.occupant === user.displayName))
       setLoading(false)
     });
 };
@@ -133,10 +119,14 @@ const setTime = (id) => {
   setToggleTime(true)
 }
 
-const occupy = occupiedUser ? Array.from(Object.values(occupiedUser)) : ["Dummy User"]
-const occupyUser = occupy.map((item) => {
-  return item.User
-})
+const authenticate = () => {
+  setLoading(true)
+  if(firebase.auth().currentUser !== null){
+    if(firebase.auth().currentUser.email.indexOf('ithands.com') === -1){
+      firebase.auth().signOut();
+    } 
+  }
+}
 
 if(!signIn){
   return <Redirect to={"/"} />
@@ -145,7 +135,6 @@ if(!signIn){
 const freeRoom = data.filter(item => item.occupant === '').length;
 const stats= freeRoom === 0 ? 'No room' : freeRoom === 1 ? '1 room' : `${freeRoom} rooms`;
 const colorCode = stats === 'No room' ? 'tomato' : '#38a2b8';
-
   return (
     <div className="bg">
       <div className="bg-white position-relative vh-100">
@@ -164,6 +153,7 @@ const colorCode = stats === 'No room' ? 'tomato' : '#38a2b8';
             <p className="tag font-weight-bold text-center bg-info p-2 w-50 text-white mb-2 hand" onClick={()=> sendData(id,30)}>30 mins</p>
             <p className="tag font-weight-bold text-center bg-info p-2 w-50 text-white mb-2 hand" onClick={()=> sendData(id,45)}>45 mins</p>
             <p className="tag font-weight-bold text-center bg-info p-2 w-50 text-white mb-2 hand" onClick={()=> sendData(id,60)}>60 mins</p>
+            <p className="tag font-weight-bold position-absolute close" onClick={() => {setToggleTime(false); setID(null);}}>X</p>
           </div>
           : null
         }
@@ -175,7 +165,7 @@ const colorCode = stats === 'No room' ? 'tomato' : '#38a2b8';
               name={item.name}
               item={item.occupant}
               status={item.status}
-              occupied={occupyUser}
+              occupied={occupiedUser}
               user={user.displayName}
               enabled={item.enabled}
               time={

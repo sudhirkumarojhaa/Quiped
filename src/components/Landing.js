@@ -29,7 +29,15 @@ const Landing = () => {
   const [loading,setLoading] = useState(false)
   const uiConfig = {
     signInFlow: "popup",
-    signInOptions: [firebase.auth.GoogleAuthProvider.PROVIDER_ID],
+    signInOptions: [
+      {
+        provider : firebase.auth.GoogleAuthProvider.PROVIDER_ID,
+        customParameters: {
+          prompt: 'select_account'
+        }
+      }
+  
+    ],
     callbacks: {
       signInSuccess: () => false,
     },
