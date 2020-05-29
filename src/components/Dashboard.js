@@ -74,7 +74,9 @@ const readUserData = () => {
 const remainingTime = (timestamp,timeLimit) => {
   const a = moment(moment(moment.unix(timestamp).toLocaleString()).add(timeLimit,'m').toLocaleString())
   const b = moment.unix(moment().unix()).toLocaleString()
-  return a.diff(b,'minutes')
+  let totalseconds = a.diff(b,'seconds');
+  const formatted = moment.utc(totalseconds * 1000).format('mm:ss')
+  return formatted
 }
 
 const lessThanZero = (roomId,roomName,occupant) => {
@@ -152,7 +154,7 @@ const colorCode = stats === 'No room' ? 'tomato' : '#38a2b8';
             <p className="tag font-weight-bold text-center bg-info p-2 w-50 text-white mb-2 hand" onClick={()=> sendData(id,15)}>15 mins</p>
             <p className="tag font-weight-bold text-center bg-info p-2 w-50 text-white mb-2 hand" onClick={()=> sendData(id,30)}>30 mins</p>
             <p className="tag font-weight-bold text-center bg-info p-2 w-50 text-white mb-2 hand" onClick={()=> sendData(id,45)}>45 mins</p>
-            <p className="tag font-weight-bold text-center bg-info p-2 w-50 text-white mb-2 hand" onClick={()=> sendData(id,60)}>60 mins</p>
+            <p className="tag font-weight-bold text-center bg-info p-2 w-50 text-white mb-2 hand" onClick={()=> sendData(id,59.99)}>60 mins</p>
             <p className="tag font-weight-bold position-absolute close" onClick={() => {setToggleTime(false); setID(null);}}>X</p>
           </div>
           : null
@@ -169,10 +171,7 @@ const colorCode = stats === 'No room' ? 'tomato' : '#38a2b8';
               user={user.displayName}
               enabled={item.enabled}
               time={
-                isNaN(remainingTime(item.timestamp))
-                  ? null
-                :
-                remainingTime(item.timestamp,item.timeLimit) <= 0
+                remainingTime(item.timestamp,item.timeLimit) <= "00:00 mins left"
                   ? lessThanZero(item.id,item.name,item.occupant)
                 : remainingTime(item.timestamp,item.timeLimit) > 0 && remainingTime(item.timestamp,item.timeLimit) <= 5
                   ? remainingTime(item.timestamp,item.timeLimit) +  " mins left"
@@ -181,7 +180,7 @@ const colorCode = stats === 'No room' ? 'tomato' : '#38a2b8';
               }
               onClick={item.status ? () => sendData(item.id) : () => setTime(item.id)}
               handleExtend = {() => extendTime(item.id,item.name,item.occupant,item.timestamp,item.timeLimit)}
-              showExtend={item.status && remainingTime(item.timestamp,item.timeLimit) <= 5}
+              showExtend={item.status && remainingTime(item.timestamp,item.timeLimit) <= "05:00 mins left"}
               fade={id!==null}
             />
           }) : <p>{message}</p>}
