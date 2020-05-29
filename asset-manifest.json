@@ -1,16 +1,16 @@
 {
   "files": {
-    "main.css": "/Quiped/static/css/main.8de04947.chunk.css",
-    "main.js": "/Quiped/static/js/main.0a1e8022.chunk.js",
-    "main.js.map": "/Quiped/static/js/main.0a1e8022.chunk.js.map",
+    "main.css": "/Quiped/static/css/main.50278e93.chunk.css",
+    "main.js": "/Quiped/static/js/main.8d411fbf.chunk.js",
+    "main.js.map": "/Quiped/static/js/main.8d411fbf.chunk.js.map",
     "runtime~main.js": "/Quiped/static/js/runtime~main.47c8c7f8.js",
     "runtime~main.js.map": "/Quiped/static/js/runtime~main.47c8c7f8.js.map",
-    "static/js/2.ecf129f8.chunk.js": "/Quiped/static/js/2.ecf129f8.chunk.js",
-    "static/js/2.ecf129f8.chunk.js.map": "/Quiped/static/js/2.ecf129f8.chunk.js.map",
+    "static/js/2.4bfd4bac.chunk.js": "/Quiped/static/js/2.4bfd4bac.chunk.js",
+    "static/js/2.4bfd4bac.chunk.js.map": "/Quiped/static/js/2.4bfd4bac.chunk.js.map",
     "index.html": "/Quiped/index.html",
-    "precache-manifest.891d3c360d77f3be0b5f4c149f8b2d91.js": "/Quiped/precache-manifest.891d3c360d77f3be0b5f4c149f8b2d91.js",
+    "precache-manifest.68f76f93a67a09af2c5d55fbf8f3e4e6.js": "/Quiped/precache-manifest.68f76f93a67a09af2c5d55fbf8f3e4e6.js",
     "service-worker.js": "/Quiped/service-worker.js",
-    "static/css/main.8de04947.chunk.css.map": "/Quiped/static/css/main.8de04947.chunk.css.map",
+    "static/css/main.50278e93.chunk.css.map": "/Quiped/static/css/main.50278e93.chunk.css.map",
     "static/media/App.css": "/Quiped/static/media/bg.6c17c15b.jpg",
     "static/media/loader.gif": "/Quiped/static/media/loader.baeaf0c7.gif",
     "static/media/off.png": "/Quiped/static/media/off.0727485c.png"
