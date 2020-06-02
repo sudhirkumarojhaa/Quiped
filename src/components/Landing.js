@@ -20,7 +20,7 @@ const Landing = () => {
     setLoading(true)
     if(signIn){
       if(firebase.auth().currentUser !== null){
-        if(firebase.auth().currentUser.email.indexOf('ithands') === -1){
+        if(firebase.auth().currentUser.email.indexOf('ithands') === -1 && firebase.auth().currentUser.email.indexOf('rubico') === -1 ){
           firebase.auth().signOut();
           alert('You are not authorized to login in. Please ask your HR to add you in Quiped');
           window.location.reload()
