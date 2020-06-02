@@ -15,15 +15,25 @@ if (!firebase.apps.length) {
 const Landing = () => {
   const {signIn} = useContext(AuthContext)
   const history = useHistory();
+
   useEffect(() => {
     setLoading(true)
     if(signIn){
-      history.push('/dashboard')
-    } else{
+      if(firebase.auth().currentUser !== null){
+        if(firebase.auth().currentUser.email.indexOf('ithands') === -1){
+          firebase.auth().signOut();
+          alert('You are not authorized to login in. Please ask your HR to add you in Quiped');
+          window.location.reload()
+        } else{
+          history.push('/dashboard')
+        }
+      } 
+    } else {
       setTimeout(() => {
         setLoading(false)
-      }, 5000);
+      }, 1500);
     }
+    
   },[signIn,history])
 
   const [loading,setLoading] = useState(false)
@@ -36,7 +46,6 @@ const Landing = () => {
           prompt: 'select_account'
         }
       }
-  
     ],
     callbacks: {
       signInSuccess: () => false,

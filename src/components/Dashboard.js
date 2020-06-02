@@ -19,7 +19,6 @@ const { user,signIn } = useContext(AuthContext);
 const [loading,setLoading]= useState(false);
 
 useEffect(() => {
-  authenticate();
   setInterval(() => {
     readUserData();
   }, 1000);
@@ -121,15 +120,6 @@ const setTime = (id) => {
   setToggleTime(true)
 }
 
-const authenticate = () => {
-  setLoading(true)
-  if(firebase.auth().currentUser !== null){
-    if(firebase.auth().currentUser.email.indexOf('ithands.com') === -1){
-      firebase.auth().signOut();
-    } 
-  }
-}
-
 if(!signIn){
   return <Redirect to={"/"} />
 }
@@ -137,7 +127,7 @@ if(!signIn){
 const freeRoom = data.filter(item => item.occupant === '').length;
 const stats= freeRoom === 0 ? 'No room' : freeRoom === 1 ? '1 room' : `${freeRoom} rooms`;
 const colorCode = stats === 'No room' ? 'tomato' : '#38a2b8';
-  return (
+  return data.length !== 0 ? (
     <div className="bg">
       <div className="bg-white position-relative vh-100">
         <div className="container position-relative">
@@ -203,7 +193,7 @@ const colorCode = stats === 'No room' ? 'tomato' : '#38a2b8';
         </div>
       </div>
     </div>
-  );
+  ) : null;
 };
 
 export default Dashboard;
