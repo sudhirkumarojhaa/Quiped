@@ -71,10 +71,21 @@ const readUserData = () => {
 };
 
 const remainingTime = (timestamp,timeLimit) => {
-  const a = moment(moment(moment.unix(timestamp).toLocaleString()).add(timeLimit,'m').toLocaleString())
-  const b = moment.unix(moment().unix()).toLocaleString()
-  let totalseconds = a.diff(b,'seconds');
-  const formatted = moment.utc(totalseconds * 1000).format('mm:ss')
+  const a = moment(moment.unix(timestamp).toLocaleString()).add(timeLimit,'m')
+  let totalseconds = a.diff(moment(),'seconds');
+  let formatted
+  if(timeLimit === 1440){
+    if(moment.unix(timestamp).format('DD') !== moment().format('DD')){
+      formatted = '00:00:00'
+    } else{
+      formatted = 'full day'
+    }
+  } else if(timeLimit === 239){
+    formatted = moment.utc(totalseconds * 1000).format('hh:mm:ss')
+  }
+  else{
+    formatted = moment.utc(totalseconds * 1000).format('mm:ss')
+  }
   return formatted
 }
 
@@ -139,12 +150,16 @@ const colorCode = stats === 'No room' ? 'tomato' : '#38a2b8';
           show={freeRoom !== 0 ? true : false}
         />
         {toggleTime ?
-          <div className="d-flex flex-column bg-white justify-content-center align-items-center position-absolute w-100 h-100" >
-            <h6 className="font-weight-bold p-2 text-center">Select Time period for the meeting. </h6>
-            <p className="tag font-weight-bold text-center bg-info p-2 w-50 text-white mb-2 hand" onClick={()=> sendData(id,15)}>15 mins</p>
-            <p className="tag font-weight-bold text-center bg-info p-2 w-50 text-white mb-2 hand" onClick={()=> sendData(id,30)}>30 mins</p>
-            <p className="tag font-weight-bold text-center bg-info p-2 w-50 text-white mb-2 hand" onClick={()=> sendData(id,45)}>45 mins</p>
-            <p className="tag font-weight-bold text-center bg-info p-2 w-50 text-white mb-2 hand" onClick={()=> sendData(id,59.99)}>60 mins</p>
+          <div className="d-flex bg-white flex-column justify-content-center align-items-center position-absolute w-100 h-100" >
+            <div className="d-flex flex-column justify-content-around">
+              <h6 className="font-weight-bold p-2 text-center text-info small">Select Time period for the meeting. </h6>
+              <button onClick={() => sendData(id,15)}>15 mins</button>
+              <button onClick={() => sendData(id,30)}>30 mins</button>
+              <button onClick={() => sendData(id,45)}>45 mins</button>
+              <button onClick={() => sendData(id,59.99)}>60 mins</button>
+              <button onClick={() => sendData(id,239)}>4 hours</button>
+              <button onClick={() => sendData(id,1440)}>Full Day</button>
+            </div>
             <p className="tag font-weight-bold position-absolute close" onClick={() => {setToggleTime(false); setID(null);}}>X</p>
           </div>
           : null
@@ -161,30 +176,35 @@ const colorCode = stats === 'No room' ? 'tomato' : '#38a2b8';
               user={user.displayName}
               enabled={item.enabled}
               time={
-                remainingTime(item.timestamp,item.timeLimit) <= "00:00 mins left"
+                remainingTime(item.timestamp,item.timeLimit) <= "00:00:00 mins left"
                   ? lessThanZero(item.id,item.name,item.occupant)
                 : remainingTime(item.timestamp,item.timeLimit) > 0 && remainingTime(item.timestamp,item.timeLimit) <= 5
                   ? remainingTime(item.timestamp,item.timeLimit) +  " mins left"
+                : remainingTime(item.timestamp,item.timeLimit) === 'full day'
+                  ? "Full day"
                 :
                   remainingTime(item.timestamp,item.timeLimit) + " mins left"
               }
               onClick={item.status ? () => sendData(item.id) : () => setTime(item.id)}
               handleExtend = {() => extendTime(item.id,item.name,item.occupant,item.timestamp,item.timeLimit)}
-              showExtend={item.status && remainingTime(item.timestamp,item.timeLimit) <= "05:00 mins left"}
+              showExtend={item.status && remainingTime(item.timestamp,item.timeLimit) <= "00:05:00 mins left"}
               fade={id!==null}
             />
           }) : <p>{message}</p>}
           {id === null ?
-            <div className="fixed-bottom  mb-5 d-flex justify-content-around  align-items-center">
+            <div className="fixed-bottom flex-column  mb-5 d-flex">
+              <p className="text-center small text-info pb-2">How to use ?</p>
+              <div className="d-flex justify-content-around align-items-center">
               <div className="d-flex align-items-center">
                 <p className="small mx-2">Press</p>
-                <div className="box" style={{ borderColor:'#999'}}></div>
+                <div className="boxs" style={{ borderColor:'#999'}}></div>
                 <p className="small mx-2">to Book a room.</p>
               </div>
               <div className="d-flex align-items-center">
                 <p className="small mx-2">Press</p>
-                <div className="box" style={{ borderColor:'#0c9'}}></div>
+                <div className="boxs" style={{ borderColor:'#0c9'}}></div>
                 <p className="small mx-2"> to Vacate a room.</p>
+              </div>
               </div>
             </div>
             : null
